@@ -23,6 +23,7 @@ cd /home/download-centos/centos
 if [ ! -n "$1" ];then
 	echo "======================================================Error============================================================="
         echo "No version number, please run this script as: ./centos-addr-pull.sh R U"
+	exit 1
 else
 	echo "===============================================Get download page========================================================"
 	url_prefix="https://vault.centos.org/${sub_version[$2]}/${url_diff}/Source/SPackages/"
@@ -61,7 +62,7 @@ do
 	echo "Done"
 	echo "============================================Begin to extract tar package================================================"
 	rpm2cpio $(echo ${packet} | cut -d ' ' -f ${i}) | cpio -vi
-	mv *.tar.xz /home/download-centos/centos-extract/
+	mv $(find ./ -name '*.tar.xz') /home/download-centos/centos-extract/${packet_serial}.tar.xz
 	echo "Done"
 	echo "===================================================Begin to unzip======================================================="
 	cd /home/download-centos/centos-extract/
